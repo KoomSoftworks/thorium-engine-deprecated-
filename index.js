@@ -35,7 +35,7 @@ let driver = new driverBuilder(browser.name).build();
 
     try{
         await driver.get('https://www.google.com');
-        await driver.findElement(By.name('q')).sendKeys('cold ones', Key.RETURN);
+        await driver.findElement(By.name('q')).sendKeys('hannah montana linux', Key.RETURN);
         await driver.wait(until.titleIs(''), 5000);
     } catch (ex) {
         console.log(ex);
