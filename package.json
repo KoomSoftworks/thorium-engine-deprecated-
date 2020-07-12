@@ -9,6 +9,10 @@
   "author": "Lenny Esquivel",
   "license": "ISC",
   "dependencies": {
+    "chromedriver": "^83.0.1",
+    "dotenv": "^8.2.0",
+    "geckodriver": "^1.19.1",
+    "implement-js": "0.0.31",
     "selenium-webdriver": "^4.0.0-alpha.7"
   }
 }
