@@ -15,6 +15,7 @@ const Action = {
     keyboard: 'Keyboard',
     mouse: 'Mouse',
     move: 'Move',
+    navigate: 'Navigate',
     quit: 'Quit',
     sendKeys: 'SendKeys',
     takeScreenshot: 'TakeScreenshot'

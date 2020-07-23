@@ -1,6 +1,6 @@
 class authenticate{
-    login(username, password){
-        console.log(`Logged in as ${username}.`);
+    checkToken(token){
+        console.log(`Logged in with ${token}.`);
     }
 }
 

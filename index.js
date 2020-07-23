@@ -15,7 +15,7 @@ let Browser = require('./enums-interfaces/browser');
 // });
 
 let auth = new authenticate();
-auth.login(process.env.USERNAME, process.env.PASSWORD);
+auth.checkToken(process.env.TOKEN);
 
 //let driver = new Builder().forBrowser('firefox').build();
 
