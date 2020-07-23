@@ -15,47 +15,47 @@ class webTestExecution{
         this.testSteps = getTestSteps(testId);
         testSteps.forEach(step => {
             switch (step.Action) {
-                case Action.Clear:
+                case Action.clear:
                     break;
-                case Action.Click:
+                case Action.click:
                     break;
-                case Action.Close:
+                case Action.close:
                     break;
-                case Action.ContextClick:
+                case Action.contextClick:
                     break;
-                case Action.DoubleClick:
+                case Action.doubleClick:
                     break;
-                case Action.DragAndDrop:
+                case Action.dragAndDrop:
                     break;
-                case Action.Execute:
+                case Action.execute:
                     break;
-                case Action.GetAttribute:
+                case Action.getAttribute:
                     break;
-                case Action.GetText:
+                case Action.getText:
                     break;
-                case Action.GetTitle:
+                case Action.getTitle:
                     break;
-                case Action.Insert:
+                case Action.insert:
                     break;
-                case Action.KeyDown:
+                case Action.keyDown:
                     break;
-                case Action.KeyUp:
+                case Action.keyUp:
                     break;
-                case Action.Keyboard:
+                case Action.keyboard:
                     break;
-                case Action.Mouse:
+                case Action.mouse:
                     break;
-                case Action.Navigate:
+                case Action.navigate:
                     if(await this.navigate(step.value))
                         step.Status = Status.done;
                     else
                         step.Status = Status.error;
                     break;
-                case Action.Quit:
+                case Action.quit:
                     break;
-                case Action.SendKeys:
+                case Action.sendKeys:
                     break;
-                case Action.TakeScreenshot:
+                case Action.takeScreenshot:
                     break;
                 default:
                     step.Status = Status.notExecuted;
