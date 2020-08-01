@@ -4,10 +4,11 @@ const implementjs = require('implement-js');
 const implement = implementjs.default;
 const { Interface, type } = implementjs;
 
-const { By, Key, until } = require('selenium-webdriver');
+const { By, Key, until, WebDriver } = require('selenium-webdriver');
 const driverBuilder = require('./driverBuilder');
 const authenticate = require('./authenticate');
 let Browser = require('./enums-interfaces/browser');
+const webTestExecution = require('./execution/webTestExecution');
 
 
 // process.argv.forEach((value, index, array) => {
@@ -25,25 +26,26 @@ let browser = implement(Browser)({
     version: 4
 });
 
-let driver = new driverBuilder(browser.name).build();
+driver = new driverBuilder(browser.name).build();
 
+let executor = new webTestExecution(driver);
+executor.execute(1);
 
+// (async function test() {
 
-(async function test() {
+//     //let driver = await new Builder().forBrowser('chrome').build();
 
-    //let driver = await new Builder().forBrowser('chrome').build();
+//     try{
+//         await driver.get('https://www.google.com');
+//         await driver.findElement(By.name('q')).sendKeys('hannah montana linux', Key.RETURN);
+//         await driver.wait(until.titleIs(''), 5000);
+//     } catch (ex) {
+//         console.log(ex);
+//     } finally {
+//         await driver.quit();
+//     }
 
-    try{
-        await driver.get('https://www.google.com');
-        await driver.findElement(By.name('q')).sendKeys('hannah montana linux', Key.RETURN);
-        await driver.wait(until.titleIs(''), 5000);
-    } catch (ex) {
-        console.log(ex);
-    } finally {
-        await driver.quit();
-    }
-
-})();
+// })();
 
 
 
