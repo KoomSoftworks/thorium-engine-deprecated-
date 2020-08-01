@@ -5,8 +5,9 @@ const implement = implementjs.default;
 
 const driverBuilder = require('./driverBuilder');
 const authenticate = require('./authenticate');
-let Browser = require('./enums-interfaces/browser');
 const webTestExecution = require('./execution/webTestExecution');
+
+let Browser = require('./enums-interfaces/browser');
 
 let auth = new authenticate();
 if(!auth.checkToken(process.env.TOKEN))
@@ -22,4 +23,4 @@ driver = new driverBuilder(browser).build();
 
 let executor = new webTestExecution(driver);
 
-executor.execute(1);
+executor.execute(process.env.TESTCASE_ID);

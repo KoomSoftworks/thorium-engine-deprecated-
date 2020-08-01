@@ -28,6 +28,7 @@ class webTestExecution{
                         element = await this.getElement(step.LocatorType, step.locatorValue);
                     switch (step.Action) {
                         case Action.clear:
+                            step.Status = await this.clear(element);
                             break;
                         case Action.click:
                             step.Status = await this.click(element);
@@ -37,16 +38,19 @@ class webTestExecution{
                         case Action.contextClick:
                             break;
                         case Action.doubleClick:
+                            step.Status = await this.doubleClick(element);
                             break;
                         case Action.dragAndDrop:
                             break;
                         case Action.execute:
                             break;
                         case Action.getAttribute:
+                            step.Status = await this.getAttribute(step.value, element);
                             break;
                         case Action.getText:
                             break;
                         case Action.getTitle:
+                            step.Status = await this.getTitle();
                             break;
                         case Action.insert:
                             break;
@@ -86,6 +90,15 @@ class webTestExecution{
         };
     };
 
+    clear = async function(element){
+        try{
+            element.clear();
+            return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    }
+
     click = async function(element){
         try{
             await element.click();
@@ -95,6 +108,33 @@ class webTestExecution{
         }
         
     };
+
+    doubleClick = async function(element){
+        try{
+            await element.doubleClick();
+            return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    }
+
+    getAttribute = async function(attribute, element){
+        try{
+            await element.getAttribute(attribute);
+            return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    }
+
+    getTitle = async function(){
+        try{
+            await this.driver.getTitle();
+            return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    }
 
     navigate = async function(url){
         try {
