@@ -18,7 +18,8 @@ const Action = Object.freeze({
     navigate: 'Navigate',
     quit: 'Quit',
     sendKeys: 'SendKeys',
-    takeScreenshot: 'TakeScreenshot'
+    takeScreenshot: 'TakeScreenshot',
+    wait: 'Wait'
 })
 
 module.exports = Action;
