@@ -8,7 +8,7 @@ const driver = new Builder();
 class driverBuilder{
 
     constructor(browser){
-        driver.forBrowser(browser);
+        driver.forBrowser(browser.name);
     }
 
     build(){

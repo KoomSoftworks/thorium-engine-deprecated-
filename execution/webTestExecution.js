@@ -22,6 +22,8 @@ class webTestExecution{
         for(let step of this.testSteps) {
             try {
                 if(!step.skip){
+                    step.Status = Status.inProgress;
+                    this.reportStepProgress(step);
                     if(step.locatorValue != '' && step.LocatorType != '')
                         element = await this.getElement(step.LocatorType, step.locatorValue);
                     switch (step.Action) {

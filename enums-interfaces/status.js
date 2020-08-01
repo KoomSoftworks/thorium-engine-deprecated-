@@ -3,6 +3,6 @@ const Status = Object.freeze({
     inProgress: 'In Progress',
     notExecuted: 'Not executed',
     error: 'Error'
-})
+});
 
 module.exports = Status;
