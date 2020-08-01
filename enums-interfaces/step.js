@@ -1,10 +1,6 @@
 const implementjs = require('implement-js');
 const { Interface, type } = implementjs;
 
-const Action = require('./action');
-const LocatorType = require('./locatortype');
-const Status = require('./status');
-
 const Step = Interface('Step')({
     id: type('number'),
     index: type('number'),
@@ -14,9 +10,9 @@ const Step = Interface('Step')({
     screenshot: type('boolean'),
     skip: type('boolean'),
     testId: type('number'),
-    Action: type('object'),
-    LocatorType: type('object'),
-    Status: type('object')
+    Action: type('string'),
+    LocatorType: type('string'),
+    Status: type('string')
 })
 
 module.exports = Step;

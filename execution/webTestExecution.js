@@ -3,128 +3,143 @@ const implement = implementjs.default;
 
 const Step = require('../enums-interfaces/step');
 const Action = require('../enums-interfaces/action');
+const Status = require('../enums-interfaces/status');
+const LocatorType = require('../enums-interfaces/locatortype');
 
 const { By, Key, until, WebElement } = require('selenium-webdriver');
 
 let driver;
-let testSteps;
+let element;
 
 class webTestExecution{
     constructor(webdriver){
         this.driver = webdriver;
-    }
+    };
     
-    async execute(testId){
+    execute = function(testId){
         this.testSteps = this.getTestSteps(testId);
-        testSteps.forEach(step => {
-            if(step.skip)
-                return;
-            if(step.locatorValue != null && step.LocatorType != null)
-                element = getElement(step.locatorType, step.locatorValue);
-            switch (step.Action) {
-                case Action.clear:
-                    break;
-                case Action.click:
-                    break;
-                case Action.close:
-                    break;
-                case Action.contextClick:
-                    break;
-                case Action.doubleClick:
-                    break;
-                case Action.dragAndDrop:
-                    break;
-                case Action.execute:
-                    break;
-                case Action.getAttribute:
-                    break;
-                case Action.getText:
-                    break;
-                case Action.getTitle:
-                    break;
-                case Action.insert:
-                    break;
-                case Action.keyDown:
-                    if(keyDown(step.value, element))
-                        step.Status = Status.done;
-                    else
-                        step.Status = Status.error;
-                    break;
-                case Action.keyUp:
-                    break;
-                case Action.keyboard:
-                    break;
-                case Action.mouse:
-                    break;
-                case Action.navigate:
-                    if(navigate(step.value))
-                        step.Status = Status.done;
-                    else
-                        step.Status = Status.error;
-                    break;
-                case Action.quit:
-                    break;
-                case Action.sendKeys:
-                    if(sendKeys(step.value, element))
-                        step.Status = Status.done;
-                    else
-                        step.Status = Status.error;
-                    break;
-                case Action.takeScreenshot:
-                    break;
-                default:
-                    step.Status = Status.notExecuted;
-                    break;
+        this.testSteps.forEach(async step => {
+            try {
+                if(step.skip)
+                    return;
+                if(step.locatorValue != '' && step.LocatorType != '')
+                    element = this.getElement(step.LocatorType, step.locatorValue);
+                switch (step.Action) {
+                    case Action.clear:
+                        break;
+                    case Action.click:
+                        break;
+                    case Action.close:
+                        break;
+                    case Action.contextClick:
+                        break;
+                    case Action.doubleClick:
+                        break;
+                    case Action.dragAndDrop:
+                        break;
+                    case Action.execute:
+                        break;
+                    case Action.getAttribute:
+                        break;
+                    case Action.getText:
+                        break;
+                    case Action.getTitle:
+                        break;
+                    case Action.insert:
+                        break;
+                    case Action.keyDown:
+                        step.Status = await this.keyDown(step.value, element);
+                        break;
+                    case Action.keyUp:
+                        break;
+                    case Action.keyboard:
+                        break;
+                    case Action.mouse:
+                        break;
+                    case Action.navigate:
+                        step.Status = await this.navigate(step.value);
+                        break;
+                    case Action.quit:
+                        break;
+                    case Action.sendKeys:
+                        step.Status = await this.sendKeys(step.value, element);
+                        break;
+                    case Action.takeScreenshot:
+                        break;
+                    default:
+                        step.Status = Status.notExecuted;
+                        break;
+                }
+                console.log(`Step ${step.index}, ${step.Action}. Status: ${step.Status}.`);
+            } catch (ex) {
+                console.log(ex);
             }
-            console.log(`Step ${step.index}, ${step.Action}. Status: ${step.Status}.`);
         });
-    }
+    };
 
-    click(element){
-        element.click();
-        return true;
-    }
+    click = async function(element){
+        try{
+            await element.click();
+            return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+        
+    };
 
-    navigate(url){
-        this.driver.get(url);
-        return true;
-    }
+    navigate = async function(url){
+        try {
+            await this.driver.get(url);
+            return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    };
 
-    sendKeys(text, element){
-        if(text.includes('$key.'))
-            element.sendKeys(getKey(text));
-        else
-            element.sendKeys(text);
-        return true;
-    }
+    sendKeys = async function(text, element){
+        try{
+            if(text.includes('$key.'))
+                await element.sendKeys(getKey(text));
+            else
+                await element.sendKeys(text);
+                return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    };
 
-    keyDown(key, element){
-        if(element != null)
-            element.keyDown(key);
-        else
-            driver.keyDown(key);
-    }
+    keyDown = async function(key, element){
+        try{
+            if(element != null)
+                await element.keyDown(key);
+            else
+                await driver.keyDown(key);
+                return Status.done;
+        } catch (ex) {
+            throw ex;
+        }
+    };
 
-    getElement(locatorType, locatorValue){
+    getElement = function(locatorType, locatorValue){
         switch(locatorType) {
-            case locatorType.name:
+            case LocatorType.name:
                 return driver.findElement(By.name(locatorValue));
-            case locatorType.className:
+            case LocatorType.className:
                 return driver.findElement(By.className(locatorValue));
-            case locatorType.tagName:
+            case LocatorType.tagName:
                 return driver.findElement(By.tagName(locatorValue));
-            case locatorType.xpath:
+            case LocatorType.xpath:
                 return driver.findElement(By.xpath(locatorValue));
-            case locatorType.id:
+            case LocatorType.id:
                 return driver.findElement(By.id(locatorValue));
-            case locatorType.linkText:
+            case LocatorType.linkText:
                 return driver.findElement(By.linkText(locatorValue));
-            case locatorType.partialLinkText:
+            case LocatorType.partialLinkText:
                 return driver.findElement(By.partialLinkText(locatorValue));
         }
-    }
+    };
 
-    getKey(key){
+    getKey = function(key){
         switch(key.split("$key.")[1]){
             case "enter":
                 return Key.ENTER;
@@ -141,9 +156,9 @@ class webTestExecution{
             case "arrowright":
                 return Key.ARROW_RIGHT;
         }
-    }
+    };
 
-    getTestSteps(testId){
+    getTestSteps = function(testId){
         let step1 = implement(Step)({
             id: 1,
             index: 1,
@@ -154,7 +169,7 @@ class webTestExecution{
             skip: false,
             testId: testId,
             Action: Action.navigate,
-            LocatorType: null,
+            LocatorType: '',
             Status: Status.notExecuted
         });
         let step2 = implement(Step)({
@@ -180,7 +195,7 @@ class webTestExecution{
             skip: true,
             testId: testId,
             Action: Action.keyDown,
-            LocatorType: null,
+            LocatorType: '',
             Status: Status.notExecuted
         });
         let step4 = implement(Step)({
@@ -196,8 +211,8 @@ class webTestExecution{
             LocatorType: LocatorType.name,
             Status: Status.notExecuted
         });
-        return testStepsList = { step1, step2, step3, step4 }
+        return [ step1, step2, step3, step4 ];
     }
-}
+};
 
 module.exports = webTestExecution;

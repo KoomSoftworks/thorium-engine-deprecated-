@@ -1,4 +1,4 @@
-const Action = {
+const Action = Object.freeze({
     clear: 'Clear',
     click: 'Click',
     close: 'Close',
@@ -19,4 +19,6 @@ const Action = {
     quit: 'Quit',
     sendKeys: 'SendKeys',
     takeScreenshot: 'TakeScreenshot'
-}
+})
+
+module.exports = Action;

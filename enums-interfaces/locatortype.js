@@ -1,4 +1,4 @@
-const LocatorType = {
+const LocatorType = Object.freeze({
     name: 'Name',
     className: 'ClassName',
     tagName: 'TagName',
@@ -6,4 +6,6 @@ const LocatorType = {
     id: 'Id',
     linkText: 'LinkText',
     partialLinkText: 'PartialLinkText'
-}
+})
+
+module.exports = LocatorType;
