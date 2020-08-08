@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Lenny Esquivel",
   "license": "ISC",
@@ -14,5 +14,8 @@
     "geckodriver": "^1.19.1",
     "implement-js": "0.0.31",
     "selenium-webdriver": "^4.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1"
   }
 }
